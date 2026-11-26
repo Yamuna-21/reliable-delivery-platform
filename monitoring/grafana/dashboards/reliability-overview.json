@@ -1,0 +1,15 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {"datasource":{"type":"prometheus","uid":"Prometheus"},"fieldConfig":{"defaults":{"unit":"reqps"},"overrides":[]},"gridPos":{"h":8,"w":12,"x":0,"y":0},"id":1,"options":{"legend":{"displayMode":"list","placement":"bottom"},"tooltip":{"mode":"single"}},"targets":[{"expr":"sum(rate(http_server_requests_seconds_count{application=\"reliable-delivery-platform\"}[5m]))","legendFormat":"Requests/sec","refId":"A"}],"title":"HTTP Request Rate","type":"timeseries"},
+    {"datasource":{"type":"prometheus","uid":"Prometheus"},"fieldConfig":{"defaults":{"unit":"s"},"overrides":[]},"gridPos":{"h":8,"w":12,"x":12,"y":0},"id":2,"options":{"legend":{"displayMode":"list","placement":"bottom"},"tooltip":{"mode":"single"}},"targets":[{"expr":"histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{application=\"reliable-delivery-platform\"}[5m])) by (le))","legendFormat":"p95 latency","refId":"A"}],"title":"95th Percentile HTTP Latency","type":"timeseries"},
+    {"datasource":{"type":"prometheus","uid":"Prometheus"},"fieldConfig":{"defaults":{"unit":"short"},"overrides":[]},"gridPos":{"h":8,"w":12,"x":0,"y":8},"id":3,"options":{"reduceOptions":{"calcs":["lastNotNull"],"fields":"","values":false},"orientation":"auto","textMode":"auto"},"targets":[{"expr":"sum(jvm_memory_used_bytes{application=\"reliable-delivery-platform\",area=\"heap\"})","legendFormat":"Heap used","refId":"A"}],"title":"JVM Heap Memory Used (bytes)","type":"stat"},
+    {"datasource":{"type":"prometheus","uid":"Prometheus"},"fieldConfig":{"defaults":{"unit":"short"},"overrides":[]},"gridPos":{"h":8,"w":12,"x":12,"y":8},"id":4,"options":{"reduceOptions":{"calcs":["lastNotNull"],"fields":"","values":false},"orientation":"auto","textMode":"auto"},"targets":[{"expr":"up{job=\"reliable-delivery-platform\"}","legendFormat":"Target up","refId":"A"}],"title":"Application Scrape Status (1 = UP)","type":"stat"}
+  ],
+  "refresh":"15s","schemaVersion":39,"style":"dark","tags":["devops","reliability","spring-boot"],"templating":{"list":[]},"time":{"from":"now-1h","to":"now"},"timepicker":{},"timezone":"browser","title":"Reliable Delivery Platform - Reliability Overview","uid":"reliable-overview","version":1
+}
